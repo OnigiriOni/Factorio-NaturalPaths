@@ -1,0 +1,12 @@
+{
+    "factorio_version": "1.1",
+    "version": "0.1.0",
+    "dependencies": ["base >= 1.1.21"],
+    "name": "natural-paths",
+    "title": "Natural Paths",
+    "author": "OnigiriOni",
+    "contact": "",
+    "homepage": "",
+    "description": "While driving and to a lesser extend walking, the soil will degrade and form natural paths. Over time it will regenerate to its original form.\n\nFeatures different behaviour for walking and driving and a dynamically calculated regeneration path.\n\nThis mod is still in beta and might have bugs. Until full release, updates may break the regeneration process so take a look at the changelog."
+  }
+  
