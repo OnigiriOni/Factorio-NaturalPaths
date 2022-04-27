@@ -2,18 +2,17 @@
 A mod for Factorio to dynamically change tile textures when driving or walking over them.
 
 ### Features: ###
-
-    #### General: ####
+    **General:**
         - Exclusion of certain surfaces to be modified.
         - Exclusion of certain tiles to be modified.
         - Exclusion of certain vehicles to modify tiles.
         - Exclusion of certain mod movement options to modify tiles.
-
-    #### Deterioration: ####
+    
+    **Deterioration:**
         - Each vehicle has their own custom weight and other modifiers to impact the soil differently.
         - Each vehicle has a certain pattern in which tiles will be affected for more variation.
         - Walking will change tiles in a different way than driving, resulting in other end tile types.
-
+    
     #### Regeneration: ####
         - Tiles calculate a path from their current tile type to the original tile type via a tile-graph. This allows then to be modified however and still be able to return to their original tile.
         - Tile types have their own regeneration time, so certain tiles will take longer to change textures than others.
