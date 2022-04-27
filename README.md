@@ -1,2 +1,50 @@
 # Factorio-NaturalPaths
 A mod for Factorio to dynamically change tile textures when driving or walking over them.
+
+###Features:
+
+    ####General:
+        - Exclusion of certain surfaces to be modified.
+        - Exclusion of certain tiles to be modified.
+        - Exclusion of certain vehicles to modify tiles.
+        - Exclusion of certain mod movement options to modify tiles.
+
+    ####Deterioration:
+        - Each vehicle has their own custom weight and other modifiers to impact the soil differently.
+        - Each vehicle has a certain pattern in which tiles will be affected for more variation.
+        - Walking will change tiles in a different way than driving, resulting in other end tile types.
+
+    ####Regeneration:
+        - Tiles calculate a path from their current tile type to the original tile type via a tile-graph. This allows then to be modified however and still be able to return to their original tile.
+        - Tile types have their own regeneration time, so certain tiles will take longer to change textures than others.
+
+
+    ####Debug:
+        - Prints various information about the mods functions during gameplay.
+
+        - Able to print a list of all vehicles in game with some information to make integration easier.
+        - Able to print information about the tile you are standing on.
+        - Able to print information about the table were tile information is stored to better understand and monitor performance.
+        - Able to set tiles around your position to a specific tile type to test regeneration functions.
+        - Able to reset all changed tiles to their original tile type in case the current state of the map is undesired or you want to safly unistall the mod.
+
+
+###Todo (More like this is interesting):
+
+    ####Feature
+        - Spread tile types as the car is moving.
+        - AI vehicles should apply deterioration as well.
+
+    ####Compatibility
+        - Make mod compatible with aircraft mods.
+        - Make mod compatible with surface/tile mods.
+
+    ####Performance
+        - Instead of changing all surfaces each update, change only surfaces a player is on. Accumulate changes on that surface and update it once a player is on it.
+        - Update chunks over multiple ticks to avoid lag spikes.
+
+
+###Some Noteworthy Information:
+
+    Tiles:
+        - Factorios dirt tiles and some other tiles appear smaller after the correction pass when placed surrounded or next to grass. A 5x5 area will look like a 4x4 area.
