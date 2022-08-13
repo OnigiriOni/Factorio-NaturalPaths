@@ -26,3 +26,15 @@ data:extend({
 -----------------------------------------------------------------------------------------
 -- Customization Settings
 -----------------------------------------------------------------------------------------
+
+
+data:extend({
+    {
+        type = "bool-setting",
+        name = "natural-path--general--enableUnreachableTiles",
+        description = "natural-path--general--enableUnreachableTiles",
+        setting_type = "startup",
+        default_value = true,
+        order = "a",
+    },
+})

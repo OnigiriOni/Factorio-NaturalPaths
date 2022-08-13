@@ -20,14 +20,15 @@ A mod for Factorio to dynamically change tile textures when driving or walking o
 - Exclusion of certain mod movement options to modify tiles.
 
 #### Debug: ####
-- Prints various information about the mods functions during gameplay.
+Enables commands and prints various information about the mods functions during gameplay.
 
-- **Able to reset all changed tiles to their original tile type in case the current state of the map is undesired or you want to safly unistall the mod.**
-- Able to print a list of all vehicles in game with some information to make integration easier.
-- Able to print information about the tile you are standing on.
-- Able to print information about the table were tile information is stored to better understand and monitor performance.
-- Able to set tiles around your position to a specific tile type to test regeneration functions.
-- Able to print inventory weights of character or vehicles.
+**Use "/np-reset" to reset all changed tiles to their original tile type in case the current state of the map is undesired or you want to safly unistall the mod.**
+
+- Print a list of all vehicles in game with some information to make integration easier.
+- Print information about the tile you are standing on.
+- Print information about the table were tile information is stored to better understand and monitor performance.
+- Set tiles around your position to a specific tile type to test regeneration functions.
+- Print inventory weights of character or vehicles.
 
 ### Todo (More like this is interesting): ###
 
@@ -37,7 +38,7 @@ A mod for Factorio to dynamically change tile textures when driving or walking o
 
 #### Compatibility ####
 - Make mod compatible with aircraft mods.
-- Make mod compatible with surface/tile mods.
+- Make mod compatible with surface/tile mods (Alien Biomes has soooo much tiles _holey_).
 
 #### Performance ####
 - Instead of changing all surfaces each update, change only surfaces a player is on. Accumulate changes on that surface and update it once a player is on it.

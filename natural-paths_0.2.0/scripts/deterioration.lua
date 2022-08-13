@@ -12,6 +12,30 @@ local function getDeteriorationValue(deteriorationInfo, tileInfo)
 end
 
 
+-- Returns the next tile in the deterioration path.
+-- Skips tiles that are unreachable until tiles are reachable again.
+-- If no tile is reachable then it will return nil as if the path had ended.
+function GetNextPathTile(entryTile, deteriorationInfo, player)
+    local nextTile = entryTile.currentTile
+    local cashedNextTile = nextTile
+    repeat
+        if player.vehicle then
+            nextTile = DETERIORATION_PATHS[cashedNextTile].nextVehicle
+        else
+            nextTile = DETERIORATION_PATHS[cashedNextTile].nextWalking
+        end
+        cashedNextTile = nextTile
+
+        if nextTile == nil then break end
+        if EnableUnreachableTiles and IsTileUnreachable(deteriorationInfo.unreachableTiles, nextTile) then
+            nextTile = nil
+        end
+    until nextTile ~= nil
+
+    return nextTile
+end
+
+
 local function deteriorateEntryTile(entryTile, player, deteriorationInfo)
     local updateTexture = false
 
@@ -23,12 +47,7 @@ local function deteriorateEntryTile(entryTile, player, deteriorationInfo)
     debug.print(deterioration .. " -> " .. entryTile.currentTile .. " at " .. entryTile.deterioration .. "/" .. tileInfo.threshold, player)
 
     while entryTile.deterioration >= tileInfo.threshold do
-        local nextTile = ""
-        if player.vehicle then
-            nextTile = DETERIORATION_PATHS[entryTile.currentTile].nextVehicle
-        else
-            nextTile = DETERIORATION_PATHS[entryTile.currentTile].nextWalking
-        end
+        local nextTile = GetNextPathTile(entryTile, deteriorationInfo, player)
 
         if nextTile ~= nil then
             entryTile.currentTile = nextTile
@@ -47,7 +66,7 @@ local function deteriorateEntryTile(entryTile, player, deteriorationInfo)
             break
         end
     end
-    
+
     return {
         updateTexture = updateTexture,
         entryTile = entryTile,

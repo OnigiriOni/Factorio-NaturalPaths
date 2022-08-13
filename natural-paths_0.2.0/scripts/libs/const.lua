@@ -71,6 +71,7 @@ TILE_INFO = {
 -- Information about vehicles and the character which determine how a tile deteriorates.
 -- If a vehicle is not listed here it will use the default entry.
 -- Can be modified as desired. Add new vehicles by name (not by type).
+-- Make sure unreachableTiles does not block off paths too much.
 VEHICLES = {
     ["default"]             = { weight =  1500, destruction = 1.10, pattern =   "plus", unreachableTiles = {} },
     ["character"]           = { weight =   100, destruction = 1.01, pattern = "center", unreachableTiles = {"landfill"} },

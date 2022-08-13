@@ -101,6 +101,16 @@ function CanPlayerDeteriorateTiles(player)
 end
 
 
+-- Returns if a tile type cannot be reached by a vehicle.
+function IsTileUnreachable(unreachableTiles, tile)
+    for _, uTile in pairs(unreachableTiles) do
+        if uTile == tile then
+            return true
+        end
+    end
+end
+
+
 -----------------------------------------------------------------------------------------
 -- Weight
 -----------------------------------------------------------------------------------------
