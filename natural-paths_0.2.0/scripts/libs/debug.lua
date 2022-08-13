@@ -1,9 +1,6 @@
 require("scripts/libs/vars")
 
 
-local debug = {}
-
-
 -- Colors used for printing messages.
 debug.white     = { r = 1, g = 1, b = 1, a = 1 }
 debug.green     = { r = 0, g = 1, b = 0, a = 1 }
@@ -13,7 +10,7 @@ debug.red       = { r = 1, g = 0, b = 0, a = 1 }
 
 -- Prints a message in the chat console only if debug is enabled.
 function debug.print(msg, player, color)
-    if enableDebug then    
+    if EnableDebug then
         player = player or game
         color = color or debug.white
 
@@ -42,7 +39,7 @@ end
 
 -- Special method to print the path found by the grap search.
 function debug.printGraphPath(path, player)
-    msg = "Found Path for " .. path[1] .. ": "
+    local msg = "Found Path for " .. path[1] .. ": "
 
     for i, entry in pairs(path) do
         if i ~= 1 then
@@ -56,6 +53,3 @@ function debug.printGraphPath(path, player)
 
     debug.print(msg, player, debug.green)
 end
-
-
-return debug

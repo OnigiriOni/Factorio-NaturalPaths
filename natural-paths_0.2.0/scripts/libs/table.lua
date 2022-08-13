@@ -1,3 +1,12 @@
+-- struct entryTile
+-- {
+--     {x,y}    position            -- The world position of the tile. [Static]
+--     string   startTile           -- The original tile type. The tile will regenerate to this eventually. [Static]
+--     string   currentTile         -- The current type of the tile. This determines the deterioration threshold & regeneration path. [Dynamic]
+--     float    deterioration       -- How destroyed this tile is. If this is over the threshold it will change to a new tile. [Dynamic]
+--     string[] regenerationPath    -- This stores the tile types this tile has to change to while regenerationg. Each tile type may have a different path. [Dynamic (currentTile)]
+--     bool     requirePathUpdate   -- If true, regenerationPath above needs to be recalculated because the tile type has probably changed. [Dynamic (currentTile)]
+-- }
 
 
 -----------------------------------------------------------------------------------------
@@ -6,13 +15,13 @@
 
 
 -- Returns a string used as key for the surface group in the table.
-function getSurfaceKey(surface)
+function GetSurfaceKey(surface)
     return surface.name
 end
 
 
 -- Returns a string used as key for the chunk group in the table.
-function getChunkKey(position)
+function GetChunkKey(position)
     position.x = math.floor(position.x / CHUNK_SIZE)
     position.y = math.floor(position.y / CHUNK_SIZE)
     return position.x .. "," .. position.y
@@ -20,7 +29,7 @@ end
 
 
 -- Returns a string used as key for the entry tile in the table.
-function getEntryKey(position)
+function GetEntryKey(position)
     position.x = math.floor(position.x)
     position.y = math.floor(position.y)
     return position.x .. "," .. position.y
@@ -33,7 +42,7 @@ end
 
 
 -- Returns a new entry tile object based on the given surface tile.
-function createEntryTile(surfaceTile)
+function CreateEntryTile(surfaceTile)
     return {
         position = surfaceTile.position,
         startTile = surfaceTile.name,
@@ -46,7 +55,7 @@ end
 
 
 -- Returns an entry tile or nil.
-function getEntryTile(surfaceKey, chunkKey, entryKey)
+function GetEntryTile(surfaceKey, chunkKey, entryKey)
     return global.tile_table[surfaceKey]
     and global.tile_table[surfaceKey][chunkKey]
     and global.tile_table[surfaceKey][chunkKey][entryKey] 
@@ -54,8 +63,7 @@ end
 
 
 -- Stores an entry tile in the table at the specified surface and chunk group.
-function insertEntryTile(surfaceKey, chunkKey, entryKey, entryTile)
-
+function InsertEntryTile(surfaceKey, chunkKey, entryKey, entryTile)
     local chunks = global.tile_table[surfaceKey]
     if not chunks then
         chunks = {}
@@ -73,7 +81,7 @@ end
 
 
 -- Set entries in the specified surface and chunk group to nil.
-function removeEntriesFromTableChunk(surfaceKey, chunkKey, entryKeys)
+function RemoveEntriesFromTableChunk(surfaceKey, chunkKey, entryKeys)
     for entryKey, _ in pairs(entryKeys) do
         global.tile_table[surfaceKey][chunkKey][entryKey] = nil
     end
@@ -81,7 +89,7 @@ end
 
 
 -- Set chunks in the specified surface group to nil.
-function removeChunksFromTableSurface(surfaceKey, chunkKeys)
+function RemoveChunksFromTableSurface(surfaceKey, chunkKeys)
     for chunkKey, _ in pairs(chunkKeys) do
         global.tile_table[surfaceKey][chunkKey] = nil
     end
@@ -89,7 +97,7 @@ end
 
 
 -- Set surfaces in the table to nil.
-function removeSurfacesFromTable(surfaceKeys)
+function RemoveSurfacesFromTable(surfaceKeys)
     for surfaceKey, _ in pairs(surfaceKeys) do
         global.tile_table[surfaceKey] = nil
     end
@@ -102,7 +110,7 @@ end
 
 
 -- Returns an object with some information about the table.
-function getTableInfo()
+function GetTableInfo()
     local info = {}
     info.status = true
     info.totalSurfaces = 0
@@ -123,10 +131,10 @@ function getTableInfo()
             if surfaceKey == gameSurface.name then surfaceInfo.exists = true break end
         end
 
-        for chunkKey, chunk in pairs(surface) do
+        for _, chunk in pairs(surface) do
             surfaceInfo.chunks = surfaceInfo.chunks + 1
 
-            for entryKey, entry in pairs(chunk) do
+            for _, _ in pairs(chunk) do
                 surfaceInfo.entries = surfaceInfo.entries + 1
             end
         end

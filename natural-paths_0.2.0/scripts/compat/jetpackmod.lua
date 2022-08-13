@@ -1,5 +1,3 @@
-
-
 -- Jetpack mod
 
 -- The mod changes the character prototype that the player is using and appends a "-jetpack" to its name while flying.

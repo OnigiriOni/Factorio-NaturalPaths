@@ -2,30 +2,36 @@ require("scripts/libs/vars")
 require("scripts/libs/utils")
 require("scripts/libs/table")
 require("scripts/libs/graph")
+require("scripts/libs/debug")
 
-local debug = require("scripts/libs/debug")
+
+local function calculateRegenerationValue(tileInfo)
+    return (tileInfo.threshold / tileInfo.regeneration) * RegenerationDelta
+end
 
 
-function regenerateTile(entryTile)
-
+local function regenerateTile(entryTile)
     local updateTexture = false
     local deleteEntry = false
 
     local tileInfo = TILE_INFO[entryTile.currentTile]
-
-    entryTile.deterioration = entryTile.deterioration - (tileInfo.threshold / tileInfo.regeneration) * regenerationDelta
+    local regValue = calculateRegenerationValue(tileInfo)
+    entryTile.deterioration = entryTile.deterioration - regValue
 
     while entryTile.deterioration <= 0 do
-
         if entryTile.currentTile ~= entryTile.startTile then
-
             if entryTile.requirePathUpdate then
-                entryTile.regenerationPath = calculateRegenerationPath(entryTile)
+                entryTile.regenerationPath = CalculateRegenerationPath(entryTile)
             end
 
             entryTile.currentTile = entryTile.regenerationPath[1]
             table.remove(entryTile.regenerationPath, 1)
-            entryTile.deterioration = TILE_INFO[entryTile.currentTile].threshold + entryTile.deterioration
+
+            -- Use the same percent of the leftover regValue from the initial regeneration pass on the new tile regeneration pass.
+            -- If one tile regenerates 1000 deterioration in one pass and the next tile only has a threshold of 500 it could just skipp the tile with the leftover regeneration.
+            tileInfo = TILE_INFO[entryTile.currentTile]
+            local value = (math.abs(entryTile.deterioration) / regValue) * calculateRegenerationValue(tileInfo)
+            entryTile.deterioration = tileInfo.threshold - value
 
             updateTexture = true
         else
@@ -41,38 +47,33 @@ function regenerateTile(entryTile)
 end
 
 
-function regenerateTilesInChunk(surface, surfaceKey, chunkKey)
-
+local function regenerateTilesInChunk(surface, surfaceKey, chunkKey)
     local tilesToUpdate = {}
     local tilesToDelete = {}
 
     for entryKey, entryTile in pairs(global.tile_table[surfaceKey][chunkKey]) do
-
         local result = regenerateTile(entryTile)
-
         if result.deleteEntry then tilesToDelete[entryKey] = true end
-
         if result.updateTexture then
             table.insert(tilesToUpdate, { name = entryTile.currentTile, position = entryTile.position })
         end
     end
 
-    removeEntriesFromTableChunk(surfaceKey, chunkKey, tilesToDelete)
-    updateTextureOfSurfaceTiles(surface, tilesToUpdate)
+    RemoveEntriesFromTableChunk(surfaceKey, chunkKey, tilesToDelete)
+    UpdateTextureOfSurfaceTiles(surface, tilesToUpdate)
 end
 
 
-function regenerateTilesOnSurface(surface)
-    local surfaceKey = getSurfaceKey(surface)
+local function regenerateTilesOnSurface(surface)
+    local surfaceKey = GetSurfaceKey(surface)
 
     for chunkKey, _ in pairs(global.tile_table[surfaceKey]) do
-
         regenerateTilesInChunk(surface, surfaceKey, chunkKey)
     end
 end
 
 
-function updateRegeneration()
+local function updateRegeneration()
     debug.print("Natural Paths Regeneration Update")
 
     for _, surface in pairs(game.surfaces) do
@@ -81,4 +82,4 @@ function updateRegeneration()
 end
 
 
-script.on_nth_tick(ticksBetweenUpdates, updateRegeneration)
+script.on_nth_tick(TicksBetweenUpdates, updateRegeneration)

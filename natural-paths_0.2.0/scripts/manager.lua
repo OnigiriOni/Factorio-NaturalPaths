@@ -1,12 +1,12 @@
 require("scripts/libs/table")
 
 
-function initializeTable()
+local function initializeTable()
     if not global.tile_table then
         global.tile_table = {}
 
         for _, surface in pairs(game.surfaces) do
-            global.tile_table[getSurfaceKey(surface)] = {}
+            global.tile_table[GetSurfaceKey(surface)] = {}
         end
     end
 end

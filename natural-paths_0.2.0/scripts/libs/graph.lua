@@ -1,17 +1,14 @@
 require("scripts/libs/const")
-
-local debug = require("scripts/libs/debug")
+require("scripts/libs/debug")
 
 
 -- Performs a breath search by looking at each connection of the first queue entry.
-function breadthFirstSearch(queue, visited, previous)
+local function breadthFirstSearch(queue, visited, previous)
     local queueEntry = queue[1]
     table.remove(queue, 1)
 
     for _, connection in pairs(REGENERATION_GRAPH[queueEntry]) do
-        
         if not visited[connection] then
-
             table.insert(queue, connection)
             visited[connection] = true
             previous[connection] = queueEntry
@@ -21,7 +18,7 @@ end
 
 
 -- Performs a bidirectional graph search to find a path from the start to the end tile.
-function bidirectionalGraphSearch(startTile, endTile)
+local function bidirectionalGraphSearch(startTile, endTile)
     local queueStart = {}
     local queueEnd = {}
     local previousStart = {}
@@ -33,17 +30,15 @@ function bidirectionalGraphSearch(startTile, endTile)
     table.insert(queueEnd, endTile)
     visitedStart[startTile] = true
     visitedEnd[endTile] = true
-    intersection = nil
+    local intersection = nil
 
     debug.print("Begin Graph search for " .. startTile .. " to " .. endTile .. ".")
 
     while #queueStart > 0 and #queueEnd > 0 and intersection == nil do
-
         breadthFirstSearch(queueStart, visitedStart, previousStart)
         breadthFirstSearch(queueEnd, visitedEnd, previousEnd)
 
-        for tile, connections in pairs(REGENERATION_GRAPH) do
-
+        for tile, _ in pairs(REGENERATION_GRAPH) do
             if visitedStart[tile] and visitedEnd[tile] then
                 intersection = tile
                 break
@@ -82,6 +77,6 @@ end
 
 
 -- Searches for a path of tiles that the tile will change its textures to when regenerating.
-function calculateRegenerationPath(entryTile)
+function CalculateRegenerationPath(entryTile)
     return bidirectionalGraphSearch(entryTile.currentTile, entryTile.startTile)
 end

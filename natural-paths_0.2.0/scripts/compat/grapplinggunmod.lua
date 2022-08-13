@@ -1,5 +1,3 @@
-
-
 -- Grappling Gun mod
 
 -- The grappling gun teleports the player over some ticks but the character is not moving in this time.

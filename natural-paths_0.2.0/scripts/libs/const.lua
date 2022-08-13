@@ -1,5 +1,3 @@
-
-
 -- Factorios standard chunk size 32x32 tiles.
 -- 32 -> 32 * 32 = 1024 max tiles per chunk update.
 -- Can be changed if a chunk update should update more or less tiles.
@@ -27,34 +25,46 @@ INVALID_VEHICLES = {
 }
 
 
+-- Items max stack size determines the weight of the item stack.
+-- Items with a stack size not given as index always takes the closest previous index's weight or [1].
+-- A whole stack of items with a max stack size of 5 weights 8. If the stack only has 1 item it weights 1.6.
+INVENTORY_STACK_WEIGHTS = {
+    [1] =   10,
+    [5] =    8,
+    [10] =   5,
+    [50] =   2,
+    [100] =  1,
+}
+
+
 -- Information about tile types.
 -- Regeneration determines how much time it takes to heal and change to another tile.
 -- When changing values see DELTA_SCALE for the time scale.
 TILE_INFO = {
-    ["grass-1"] =      { threshold = 5000, hardness = 1.14, regeneration = 15 },
-    ["grass-2"] =      { threshold = 4800, hardness = 1.15, regeneration = 15 },
-    ["grass-3"] =      { threshold = 4600, hardness = 1.14, regeneration = 15 },
-    ["grass-4"] =      { threshold = 4500, hardness = 1.10, regeneration = 15 },
+    ["grass-1"] =      { threshold = 5000, hardness = 1.24, regeneration = 15 },
+    ["grass-2"] =      { threshold = 4800, hardness = 1.25, regeneration = 15 },
+    ["grass-3"] =      { threshold = 4600, hardness = 1.24, regeneration = 15 },
+    ["grass-4"] =      { threshold = 4500, hardness = 1.20, regeneration = 15 },
 
-    ["red-desert-0"] = { threshold = 4200, hardness = 1.15, regeneration = 15 },
-    ["red-desert-1"] = { threshold = 4000, hardness = 1.20, regeneration = 15 },
-    ["red-desert-2"] = { threshold = 4000, hardness = 1.25, regeneration = 16 },
-    ["red-desert-3"] = { threshold = 4000, hardness = 1.30, regeneration = 17 },
+    ["red-desert-0"] = { threshold = 4200, hardness = 1.25, regeneration = 15 },
+    ["red-desert-1"] = { threshold = 4000, hardness = 1.30, regeneration = 15 },
+    ["red-desert-2"] = { threshold = 4000, hardness = 1.35, regeneration = 16 },
+    ["red-desert-3"] = { threshold = 4000, hardness = 1.40, regeneration = 17 },
 
-    ["dirt-1"] =       { threshold = 3900, hardness = 1.20, regeneration = 15 },
-    ["dirt-2"] =       { threshold = 3900, hardness = 1.18, regeneration = 15 },
-    ["dirt-3"] =       { threshold = 3800, hardness = 1.16, regeneration = 15 },
-    ["dirt-4"] =       { threshold = 3700, hardness = 1.07, regeneration = 16 },
-    ["dirt-5"] =       { threshold = 3800, hardness = 1.20, regeneration = 17 },
-    ["dirt-6"] =       { threshold = 3700, hardness = 1.12, regeneration = 18 },
-    ["dirt-7"] =       { threshold = 3600, hardness = 1.05, regeneration = 18 },
-    ["dry-dirt"] =     { threshold = 3800, hardness = 1.30, regeneration = 20 },
+    ["dirt-1"] =       { threshold = 3900, hardness = 1.30, regeneration = 15 },
+    ["dirt-2"] =       { threshold = 3900, hardness = 1.28, regeneration = 15 },
+    ["dirt-3"] =       { threshold = 3800, hardness = 1.26, regeneration = 15 },
+    ["dirt-4"] =       { threshold = 3700, hardness = 1.17, regeneration = 16 },
+    ["dirt-5"] =       { threshold = 3800, hardness = 1.30, regeneration = 17 },
+    ["dirt-6"] =       { threshold = 3700, hardness = 1.22, regeneration = 18 },
+    ["dirt-7"] =       { threshold = 3600, hardness = 1.15, regeneration = 18 },
+    ["dry-dirt"] =     { threshold = 3800, hardness = 1.40, regeneration = 20 },
 
-    ["sand-1"] =       { threshold = 3000, hardness = 0.90, regeneration = 18 },
-    ["sand-2"] =       { threshold = 3000, hardness = 0.80, regeneration = 20 },
-    ["sand-3"] =       { threshold = 3500, hardness = 1.10, regeneration = 18 },
+    ["sand-1"] =       { threshold = 3000, hardness = 1.00, regeneration = 18 },
+    ["sand-2"] =       { threshold = 3000, hardness = 0.90, regeneration = 20 },
+    ["sand-3"] =       { threshold = 3500, hardness = 1.20, regeneration = 18 },
 
-    ["landfill"] =     { threshold = 3800, hardness = 1.00, regeneration = 20 },
+    ["landfill"] =     { threshold = 3800, hardness = 1.10, regeneration = 20 },
 }
 
 
@@ -62,22 +72,22 @@ TILE_INFO = {
 -- If a vehicle is not listed here it will use the default entry.
 -- Can be modified as desired. Add new vehicles by name (not by type).
 VEHICLES = {
-    ["default"]             = { weight =  1500, destruction = 1.10, pattern = "plus" },
-    ["character"]           = { weight =   100, destruction = 1.01, pattern = "center" },
-    ["car"]                 = { weight =  1000, destruction = 1.10, pattern = "plus" },
-    ["vehicle-chaingunner"] = { weight =  2000, destruction = 1.28, pattern = "plus" },
-    ["vehicle-warden"]      = { weight =  3000, destruction = 1.20, pattern = "plus" },
-    ["vehicle-hauler"]      = { weight =  4000, destruction = 1.20, pattern = "plus" },
-    ["immolator"]           = { weight =  6000, destruction = 1.07, pattern = "center" },
-    ["spidertron"]          = { weight =  7000, destruction = 1.05, pattern = "center" },
-    ["spidertron-builder"]  = { weight =  8000, destruction = 1.03, pattern = "center" },
-    ["spidertronmk2"]       = { weight =  9000, destruction = 1.05, pattern = "center" },
-    ["spidertronmk3"]       = { weight = 10000, destruction = 1.06, pattern = "center" },
-    ["spidertronmk4"]       = { weight = 11000, destruction = 1.06, pattern = "center" },
-    ["vehicle-flame-tank"]  = { weight = 18000, destruction = 1.38, pattern = "plus" },
-    ["vehicle-laser-tank"]  = { weight = 20000, destruction = 1.40, pattern = "plus" },
-    ["tank"]                = { weight = 25000, destruction = 1.48, pattern = "plus" },
-    ["kr-advanced-tank"]    = { weight = 30000, destruction = 1.50, pattern = "box" },
+    ["default"]             = { weight =  1500, destruction = 1.10, pattern =   "plus", unreachableTiles = {} },
+    ["character"]           = { weight =   100, destruction = 1.01, pattern = "center", unreachableTiles = {"landfill"} },
+    ["car"]                 = { weight =  1000, destruction = 1.10, pattern =   "plus", unreachableTiles = {"landfill"} },
+    ["vehicle-chaingunner"] = { weight =  2000, destruction = 1.32, pattern =   "plus", unreachableTiles = {"landfill"} },
+    ["vehicle-warden"]      = { weight =  3000, destruction = 1.20, pattern =   "plus", unreachableTiles = {"landfill"} },
+    ["vehicle-hauler"]      = { weight =  4000, destruction = 1.20, pattern =   "plus", unreachableTiles = {"landfill"} },
+    ["immolator"]           = { weight =  6000, destruction = 1.07, pattern = "center", unreachableTiles = {} },
+    ["spidertron"]          = { weight =  7000, destruction = 1.06, pattern = "center", unreachableTiles = {} },
+    ["spidertron-builder"]  = { weight =  8000, destruction = 1.04, pattern = "center", unreachableTiles = {} },
+    ["spidertronmk2"]       = { weight =  9000, destruction = 1.07, pattern = "center", unreachableTiles = {} },
+    ["spidertronmk3"]       = { weight = 10000, destruction = 1.08, pattern = "center", unreachableTiles = {} },
+    ["spidertronmk4"]       = { weight = 11000, destruction = 1.08, pattern = "center", unreachableTiles = {} },
+    ["vehicle-flame-tank"]  = { weight = 18000, destruction = 1.32, pattern =   "plus", unreachableTiles = {} },
+    ["vehicle-laser-tank"]  = { weight = 20000, destruction = 1.32, pattern =   "plus", unreachableTiles = {} },
+    ["tank"]                = { weight = 25000, destruction = 1.35, pattern =   "plus", unreachableTiles = {} },
+    ["kr-advanced-tank"]    = { weight = 30000, destruction = 1.38, pattern =    "box", unreachableTiles = {} },
 }
 
 
