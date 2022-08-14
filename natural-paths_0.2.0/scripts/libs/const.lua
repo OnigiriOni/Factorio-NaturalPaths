@@ -41,30 +41,30 @@ INVENTORY_STACK_WEIGHTS = {
 -- Regeneration determines how much time it takes to heal and change to another tile.
 -- When changing values see DELTA_SCALE for the time scale.
 TILE_INFO = {
-    ["grass-1"] =      { threshold = 5000, hardness = 1.24, regeneration = 15 },
-    ["grass-2"] =      { threshold = 4800, hardness = 1.25, regeneration = 15 },
-    ["grass-3"] =      { threshold = 4600, hardness = 1.24, regeneration = 15 },
-    ["grass-4"] =      { threshold = 4500, hardness = 1.20, regeneration = 15 },
+    ["grass-1"] =      { threshold = 8000, hardness = 1.24, regeneration = 25 },
+    ["grass-2"] =      { threshold = 7800, hardness = 1.25, regeneration = 25 },
+    ["grass-3"] =      { threshold = 7600, hardness = 1.24, regeneration = 25 },
+    ["grass-4"] =      { threshold = 7500, hardness = 1.20, regeneration = 25 },
 
-    ["red-desert-0"] = { threshold = 4200, hardness = 1.25, regeneration = 15 },
-    ["red-desert-1"] = { threshold = 4000, hardness = 1.30, regeneration = 15 },
-    ["red-desert-2"] = { threshold = 4000, hardness = 1.35, regeneration = 16 },
-    ["red-desert-3"] = { threshold = 4000, hardness = 1.40, regeneration = 17 },
+    ["red-desert-0"] = { threshold = 7200, hardness = 1.25, regeneration = 25 },
+    ["red-desert-1"] = { threshold = 7000, hardness = 1.30, regeneration = 25 },
+    ["red-desert-2"] = { threshold = 7000, hardness = 1.35, regeneration = 26 },
+    ["red-desert-3"] = { threshold = 7000, hardness = 1.40, regeneration = 27 },
 
-    ["dirt-1"] =       { threshold = 3900, hardness = 1.30, regeneration = 15 },
-    ["dirt-2"] =       { threshold = 3900, hardness = 1.28, regeneration = 15 },
-    ["dirt-3"] =       { threshold = 3800, hardness = 1.26, regeneration = 15 },
-    ["dirt-4"] =       { threshold = 3700, hardness = 1.17, regeneration = 16 },
-    ["dirt-5"] =       { threshold = 3800, hardness = 1.30, regeneration = 17 },
-    ["dirt-6"] =       { threshold = 3700, hardness = 1.22, regeneration = 18 },
-    ["dirt-7"] =       { threshold = 3600, hardness = 1.15, regeneration = 18 },
-    ["dry-dirt"] =     { threshold = 3800, hardness = 1.40, regeneration = 20 },
+    ["dirt-1"] =       { threshold = 7900, hardness = 1.30, regeneration = 25 },
+    ["dirt-2"] =       { threshold = 7900, hardness = 1.28, regeneration = 25 },
+    ["dirt-3"] =       { threshold = 7800, hardness = 1.26, regeneration = 25 },
+    ["dirt-4"] =       { threshold = 7700, hardness = 1.17, regeneration = 26 },
+    ["dirt-5"] =       { threshold = 7800, hardness = 1.30, regeneration = 27 },
+    ["dirt-6"] =       { threshold = 7700, hardness = 1.22, regeneration = 28 },
+    ["dirt-7"] =       { threshold = 7600, hardness = 1.15, regeneration = 28 },
+    ["dry-dirt"] =     { threshold = 6800, hardness = 1.40, regeneration = 30 },
 
-    ["sand-1"] =       { threshold = 3000, hardness = 1.00, regeneration = 18 },
-    ["sand-2"] =       { threshold = 3000, hardness = 0.90, regeneration = 20 },
-    ["sand-3"] =       { threshold = 3500, hardness = 1.20, regeneration = 18 },
+    ["sand-1"] =       { threshold = 6000, hardness = 1.00, regeneration = 28 },
+    ["sand-2"] =       { threshold = 6000, hardness = 0.90, regeneration = 30 },
+    ["sand-3"] =       { threshold = 6500, hardness = 1.20, regeneration = 28 },
 
-    ["landfill"] =     { threshold = 3800, hardness = 1.10, regeneration = 20 },
+    ["landfill"] =     { threshold = 6800, hardness = 1.10, regeneration = 30 },
 }
 
 
