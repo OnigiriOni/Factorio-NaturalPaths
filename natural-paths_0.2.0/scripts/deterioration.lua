@@ -106,23 +106,11 @@ local function onPlayerChangedPosition(event)
         local tilesToUpdate = {}
 
         if player.vehicle then
-            -- Apparently 'a' is a reference to the table object and not a copy. It would persistently add weight to the vehicle.
-            local a = VEHICLES[player.vehicle.name] or VEHICLES["default"]
-            deteriorationInfo.weight = a.weight
-            deteriorationInfo.destruction = a.destruction
-            deteriorationInfo.pattern = a.pattern
-            deteriorationInfo.unreachableTiles = a.unreachableTiles
-
+            deteriorationInfo = GetVehicleInfo(player.vehicle.name)
             deteriorationInfo.speed = math.abs(player.vehicle.speed)
             deteriorationInfo.weight = GetVehicleWeight(player, deteriorationInfo)
         else
-            -- Apparently 'a' is a reference to the table object and not a copy. It would persistently add weight to the vehicle.
-            local a = VEHICLES["character"]
-            deteriorationInfo.weight = a.weight
-            deteriorationInfo.destruction = a.destruction
-            deteriorationInfo.pattern = a.pattern
-            deteriorationInfo.unreachableTiles = a.unreachableTiles
-
+            deteriorationInfo = GetVehicleInfo("character")
             deteriorationInfo.speed = math.abs(player.character_running_speed)
             deteriorationInfo.weight = GetCharacterWeight(player, deteriorationInfo)
         end

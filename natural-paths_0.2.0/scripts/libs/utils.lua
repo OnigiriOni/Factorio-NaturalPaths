@@ -3,15 +3,21 @@ require("scripts/libs/debug")
 
 
 -----------------------------------------------------------------------------------------
--- Math
+-- Value Copy
 -----------------------------------------------------------------------------------------
 
+-- Returns a copy of the vehicle info.
+-- Without making a copy it would reference and permanently override values in the table.
+function GetVehicleInfo(vehicleName)
+    local temp = VEHICLES[vehicleName] or VEHICLES["default"]
+    local copy = {}
+    copy.weight = temp.weight
+    copy.pattern = temp.pattern
+    copy.destruction = temp.destruction
+    copy.unreachableTiles = temp.unreachableTiles
 
--- Returns the sign of the given number.
-function Sign(number)
-    return (number > 0 and 1) or (number == 0 and 0) or -1
+    return copy
 end
-
 
 -----------------------------------------------------------------------------------------
 -- Validation
@@ -191,7 +197,7 @@ end
 -- Returns the current weight of the vehicle.
 function GetVehicleWeight(player, vehicleInfo)
     local vehicleWeight = vehicleInfo.weight
-    local characterInfo = VEHICLES["character"]
+    local characterInfo = GetVehicleInfo("character")
 
     -- Add the passenger weight to the total weight.
     -- Fix the getVehicleWeight() passenger.

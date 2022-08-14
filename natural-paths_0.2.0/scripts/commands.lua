@@ -10,16 +10,18 @@ local function commandPrintVehicleList(command)
 
     debug.print("Found Vehicles:", player)
 
-    for i, prototype in pairs(game.entity_prototypes) do
+    for _, prototype in pairs(game.entity_prototypes) do
         if prototype.weight then
             if player.vehicle then
                 if prototype.name == player.vehicle.name then
                     playerVehicle = playerVehicle + 1
-                    debug.print("Name: " .. prototype.name .. ", Type: " .. prototype.type .. ", Weight: " .. prototype.weight .. " <- You are seated in this one.", player)
+                    local v = GetVehicleInfo(player.vehicle.name)
+                    debug.print("Name: " .. prototype.name .. ", Type: " .. prototype.type .. ", Weight: " .. prototype.weight .. ", Mod Weight: " .. v.weight .. " <- You are seated in this one.", player)
                 end
             else
                 playerVehicle = -1
-                debug.print("Name: " .. prototype.name .. ", Type: " .. prototype.type .. ", Weight: " .. prototype.weight, player)
+                local v = GetVehicleInfo(prototype.name)
+                debug.print("Name: " .. prototype.name .. ", Type: " .. prototype.type .. ", Weight: " .. prototype.weight .. ", Mod Weight: " .. v.weight, player)
             end
         end
     end
@@ -46,14 +48,14 @@ local function commandPrintTileInfo(command)
 
     if entryTile then
         local tileInfo = TILE_INFO[entryTile.currentTile]
-        
+
         local time = (entryTile.deterioration / tileInfo.threshold) * tileInfo.regeneration
         time = time * (DELTA_SCALE / 3600)
 
         debug.print("Original tile: " .. entryTile.startTile, player)
         debug.print("Current tile: " .. entryTile.currentTile .. " at " .. entryTile.deterioration .. " deterioration", player)
         debug.print("Expected change in " .. time .. " minutes", player)
-        
+
         if entryTile.regenerationPath and not entryTile.requirePathUpdate then
             debug.print("Reg-Path length: " .. #entryTile.regenerationPath, player)
         else
